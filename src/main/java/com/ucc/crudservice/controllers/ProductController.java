@@ -23,11 +23,13 @@ public class ProductController {
 
     private final ProductService productService;
 
+    /*****************CONTROLADOR PARA OBTENER PRODUCTOS*****************/
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getProducts() {return productService.getProducts();}
 
 
+    /*****************CONTROLADOR PARA CREAR PRODUCTO*****************/
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object>newProducts (@Valid @RequestBody Product product, BindingResult bindingResult) {
@@ -39,20 +41,23 @@ public class ProductController {
             return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
         }
         return productService.newProduct(product);
-
     }
 
 
+    /*****************CONTROLADOR PARA ACTUALIZAR PRODUCTO*****************/
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") Long id, @RequestBody Product updatedProduct) {
         return productService.updateProduct(id, updatedProduct);
     }
 
+
+    /*****************CONTROLADOR PARA ELIMINAR PRODUCTO*****************/
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Object> deleteProduct(@PathVariable("id") Long id) {
         return productService.deleteProduct(id);
     }
+
 }
 
